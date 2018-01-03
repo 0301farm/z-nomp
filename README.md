@@ -1,4 +1,4 @@
-# Zcash® and Zclassic - Node Open Mining Portal
+# Multicoin - Node Open Mining Portal
 
 **[Click here for the official - Zcash® and Zclassic Stratum Mining Pool Installation Guide](https://zdeveloper.org/wiki:z-nomp_install)**
 
@@ -21,9 +21,7 @@ IRC
 
 If your pool uses Z-NOMP let us know and we will list your website here.
 
-### Some pools using Z-NOMP or node-stratum-module:
-
-https://pool.cryptobroker.io/zcl Running MPOS and 0.5% of the fee goes to the Zclassic donation fund! 200+ blocks have been found as well! 
+### Some pools using Z-NOMP or node-stratum-module: 
 
 http://luckpool.org Zcash Pool with Custom Frontend w/Miner's Jackpot
 

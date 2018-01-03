@@ -17,7 +17,7 @@
         "url": "https://github.com/zencashio/z-nomp/issues"
     },
     "license": "MIT",
-    "author": "Joshua Yabut",
+    "author": "Joshua Yabut, Alekos Filini (@afilini)",
     "contributors": [
         "aayanl",
         "sennevb",
@@ -43,7 +43,6 @@
         "dot": "1.1.1",
         "express": "4.15.2",
         "extend": "3.0.0",
-        "mysql": "2.13.0",
         "node-json-minify": "1.0.0",
         "node-watch": "0.5.2",
         "nonce": "1.0.4",
