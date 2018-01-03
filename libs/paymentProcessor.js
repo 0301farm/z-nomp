@@ -78,7 +78,11 @@ function SetupForPool(logger, poolOptions, setupFinished){
     logger.debug(logSystem, logComponent, logComponent + ' minConf: ' + minConfShield);
     logger.debug(logSystem, logComponent, logComponent + ' payments txfee reserve: ' + fee);
     logger.debug(logSystem, logComponent, logComponent + ' maxBlocksPerPayment: ' + maxBlocksPerPayment);
-    logger.debug(logSystem, logComponent, logComponent + ' PPLNT: ' + pplntEnabled + ', time period: '+pplntTimeQualify);
+    if (pplntEnabled) {
+        logger.debug(logSystem, logComponent, logComponent + ' PPLNT enabled, time period: ' + pplntTimeQualify);
+    } else {
+        logger.debug(logSystem, logComponent, logComponent + ' PPLNT disabled');
+    }
 
     var daemon = new Stratum.daemon.interface([processingConfig.daemon], function(severity, message){
         logger[severity](logSystem, logComponent, message);
@@ -339,7 +343,7 @@ function SetupForPool(logger, poolOptions, setupFinished){
                             redisClient.multi(marketStatsUpdate).exec(function(err, results){
                                 if (err){
                                     logger.error(logSystem, logComponent, 'Error with redis during call to cacheMarketStats() ' + JSON.stringify(error));
-                                    return;
+
                                 }
                             });
                         }
@@ -399,7 +403,7 @@ function SetupForPool(logger, poolOptions, setupFinished){
                         redisClient.multi(finalRedisCommands).exec(function(error, results){
                             if (error){
                                 logger.error(logSystem, logComponent, 'Error with redis during call to cacheNetworkStats() ' + JSON.stringify(error));
-                                return;
+
                             }
                         });
                     }
@@ -530,7 +534,7 @@ function SetupForPool(logger, poolOptions, setupFinished){
                     }
                 }
             }, true, true);
-        }
+        };
         var opidTimeout = setTimeout(checkOpids, opid_interval);
     }
 
@@ -802,7 +806,7 @@ function SetupForPool(logger, poolOptions, setupFinished){
                                 return true;
                             default:
                                 return false;
-                        };
+                        }
                     });
 
                     // continue to next step in waterfall
@@ -894,7 +898,7 @@ function SetupForPool(logger, poolOptions, setupFinished){
                                            return true;
                                         default:
                                             return false;
-                                    };
+                                    }
                                 });
                             }
                             
@@ -1084,7 +1088,7 @@ function SetupForPool(logger, poolOptions, setupFinished){
                     // total up miner's balances
                     for (var w in workers) {
                         var worker = workers[w];
-                        totalShares += (worker.totalShares || 0)
+                        totalShares += (worker.totalShares || 0);
                         worker.balance = worker.balance || 0;
                         worker.reward = worker.reward || 0;
                         // get miner payout totals
@@ -1180,7 +1184,7 @@ function SetupForPool(logger, poolOptions, setupFinished){
                                 // payment failed, prevent updates to redis
                                 callback(true);
                             }
-                            return;
+
                         }
                         else if (result.error && result.error.code === -5) {
                             // invalid address specified in addressAmounts array
@@ -1188,7 +1192,7 @@ function SetupForPool(logger, poolOptions, setupFinished){
                             logger.error(logSystem, logComponent, 'Error sending payments ' + JSON.stringify(result.error));
                             // payment failed, prevent updates to redis
                             callback(true);
-                            return;
+
                         }
                         else if (result.error && result.error.message != null) {
                             // invalid amount, others?
@@ -1196,14 +1200,14 @@ function SetupForPool(logger, poolOptions, setupFinished){
                             logger.error(logSystem, logComponent, 'Error sending payments ' + JSON.stringify(result.error));
                             // payment failed, prevent updates to redis
                             callback(true);
-                            return;
+
                         }
                         else if (result.error) {
                             // unknown error
                             logger.error(logSystem, logComponent, 'Error sending payments ' + JSON.stringify(result.error));
                             // payment failed, prevent updates to redis
                             callback(true);
-                            return;
+
                         }
                         else {
 
@@ -1243,7 +1247,7 @@ function SetupForPool(logger, poolOptions, setupFinished){
                                     + JSON.stringify(result) + 'Disabling payment processing to prevent possible double-payouts.');
 
                                 callback(true);
-                                return;
+
                             }
                         }
                     }, true, true);
