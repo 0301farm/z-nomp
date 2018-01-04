@@ -26,7 +26,7 @@ module.exports = function(logger, poolConfig){
     var logComponent = coin;
     var logSubCat = 'Thread ' + (parseInt(forkId) + 1);
     
-    var connection = redis.createClient(redisConfig.port, redisConfig.host, {db: 1});
+    var connection = redis.createClient(redisConfig.port, redisConfig.host, {db: 0});
     if (redisConfig.password) {
         connection.auth(redisConfig.password);
     }

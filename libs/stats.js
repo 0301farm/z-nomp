@@ -16,7 +16,7 @@ for (var k in generic_algos) {
 
 // redis callback Ready check failed bypass trick
 function rediscreateClient(port, host, pass) {
-    var client = redis.createClient(port, host, {db: 1});
+    var client = redis.createClient(port, host, {db: 0});
     if (pass) {
         client.auth(pass);
     }
@@ -93,12 +93,12 @@ module.exports = function(logger, portalConfig, poolConfigs){
         }
         redisClients.push({
             coins: [coin],
-            client: rediscreateClient(redisConfig.port, redisConfig.host, redisConfig.password, {db: 1})
+            client: rediscreateClient(redisConfig.port, redisConfig.host, redisConfig.password, {db: 0})
         });
     });
 
     function setupStatsRedis(){
-        redisStats = redis.createClient(portalConfig.redis.port, portalConfig.redis.host, {db: 1});
+        redisStats = redis.createClient(portalConfig.redis.port, portalConfig.redis.host, {db: 0});
         redisStats.on('error', function(err){
         redisStats.auth(portalConfig.redis.password);
         });

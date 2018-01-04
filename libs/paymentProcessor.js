@@ -94,7 +94,7 @@ function SetupForEquihashPool(logger, poolOptions, setupFinished){
     var daemon = new EquihashStratum.daemon.interface([processingConfig.daemon], function(severity, message){
         logger[severity](logSystem, logComponent, message);
     });
-    var redisClient = redis.createClient(poolOptions.redis.port, poolOptions.redis.host, {db: 1});
+    var redisClient = redis.createClient(poolOptions.redis.port, poolOptions.redis.host, {db: 0});
 
     var magnitude;
     var minPaymentSatoshis;
@@ -1430,7 +1430,7 @@ function SetupForPool(logger, poolOptions, setupFinished) {
     var daemon = new Stratum.daemon.interface([processingConfig.daemon], function (severity, message) {
         logger[severity](logSystem, logComponent, message);
     });
-    var redisClient = redis.createClient(poolOptions.redis.port, poolOptions.redis.host, {db: 1});
+    var redisClient = redis.createClient(poolOptions.redis.port, poolOptions.redis.host, {db: 0});
 
     var magnitude;
     var minPaymentSatoshis;

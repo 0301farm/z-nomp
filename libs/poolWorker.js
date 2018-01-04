@@ -16,7 +16,7 @@ module.exports = function (logger) {
 
     var pools = {};
 
-    var redisClient = redis.createClient(portalConfig.redis.port, portalConfig.redis.host, {db: 1});
+    var redisClient = redis.createClient(portalConfig.redis.port, portalConfig.redis.host, {db: 0});
     if (portalConfig.redis.password) {
         redisClient.auth(portalConfig.redis.password);
     }
