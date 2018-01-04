@@ -1805,9 +1805,9 @@ function SetupForPool(logger, poolOptions, setupFinished) {
 
                     setTimeout(function () {
                         logger.debug(logSystem, logComponent, 'addressAccount:');
-                        logger.debug(logSystem, logComponent, addressAccount);
+                        logger.debug(logSystem, logComponent, JSON.stringify(addressAccount));
                         logger.debug(logSystem, logComponent, 'addressAmounts:');
-                        logger.debug(logSystem, logComponent, addressAmounts);
+                        logger.debug(logSystem, logComponent, JSON.stringify(addressAmounts));
 
                         if (Object.keys(addressAmounts).length === 0) {
                             callback(null, workers, rounds);
