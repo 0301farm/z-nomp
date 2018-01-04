@@ -14,6 +14,7 @@ var PaymentProcessor = require('./libs/paymentProcessor.js');
 var Website = require('./libs/website.js');
 
 var algos = require('stratum-pool/lib/algoProperties.js');
+var generic_algos = require('merged-pooler/lib/algoProperties.js');
 
 JSON.minify = JSON.minify || require("node-json-minify");
 
@@ -163,7 +164,7 @@ var buildPoolConfigs = function(){
 
         configs[poolOptions.coin.name] = poolOptions;
 
-        if (!(coinProfile.algorithm in algos)){
+        if (!(coinProfile.algorithm in algos) && !(coinProfile.algorithm in generic_algos)){
             logger.error('Master', coinProfile.name, 'Cannot run a pool for unsupported algorithm "' + coinProfile.algorithm + '"');
             delete configs[poolOptions.coin.name];
         }

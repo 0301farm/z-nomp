@@ -6,6 +6,13 @@ var async = require('async');
 var os = require('os');
 
 var algos = require('stratum-pool/lib/algoProperties.js');
+var generic_algos = require('merged-pooler/lib/algoProperties');
+
+for (var k in generic_algos) {
+    if (generic_algos.hasOwnProperty(k) && !algos[k]) {
+        algos[k] = generic_algos[k];
+    }
+}
 
 // redis callback Ready check failed bypass trick
 function rediscreateClient(port, host, pass) {
@@ -270,7 +277,7 @@ module.exports = function(logger, portalConfig, poolConfigs){
             }
             if (totalShares > 0 || (pindex >= Object.keys(_this.stats.pools).length)) {
                 cback(totalShares);
-                return;
+
             }
 		});
 	};

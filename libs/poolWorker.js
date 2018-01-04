@@ -1,4 +1,5 @@
-var Stratum = require('stratum-pool');
+var EquihashStratum = require('stratum-pool');
+var Stratum = require('merged-pooler');
 var redis = require('redis');
 var net = require('net');
 
@@ -98,8 +99,13 @@ module.exports = function (logger) {
             });
         };
 
+        var createPoolFunction = Stratum.createPool;
+        if (poolConfigs[coin].coin.algorithm === 'equihash') {
+            logger.debug(logSystem, logComponent, 'Overriding default setup for coin ' + coin + ' since the algorithm is equihash');
+            createPoolFunction = EquihashStratum.createPool;
+        }
 
-        var pool = Stratum.createPool(poolOptions, authorizeFN, logger);
+        var pool = createPoolFunction(poolOptions, authorizeFN, logger);
         pool.on('share', function (isValidShare, isValidBlock, data) {
 
             var shareData = JSON.stringify(data);
