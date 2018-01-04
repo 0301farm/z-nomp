@@ -1845,7 +1845,7 @@ function SetupForPool(logger, poolOptions, setupFinished) {
                                 callback(null, workers, rounds);
                             }
                         }, true, true);
-                    }, 1000);
+                    }, 60000);
                 };
                 trySend(0);
 
