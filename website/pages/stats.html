@@ -191,7 +191,7 @@
 			{{ } }}
       <!--{{=JSON.stringify(blockscomb)}}-->
       <script>
-      var blockscomb = ({{=JSON.stringify(blockscomb)}})
+      var blockscomb = ({;{=JSON.stringify(blockscomb)}})
       </script>
 			</div>
       </div>
@@ -223,12 +223,12 @@ for (var i=0; i < blockscomb.length; i++) {
 
 Object.keys(groupedByFinder).forEach(function(i) {
     var obj = {};
-    obj.label = i
-    obj.value = groupedByFinder[i].length
+    obj.label = i;
+    obj.value = groupedByFinder[i].length;
     data.push(obj)
 });
 
-console.log(JSON.stringify(data))
+console.log(JSON.stringify(data));
 
 var w = 400;
 var h = 400;
@@ -288,7 +288,7 @@ var legend = vis.selectAll('.legend')
     .enter()
     .append('g')
     .attr('class', 'legend')
-    .attr('id', {{=JSON.stringify(pool)}})
+    .attr('id', {;{=JSON.stringify(pool)}})
     .attr('transform', function(d, i) {
           var height = legendRectSize + legendSpacing;
           var offset = height * color.domain().length / 2;
@@ -341,8 +341,8 @@ legend.append('text')
 	function getReadableNetworkHashRateString(hashrate){
 		hashrate = (hashrate * 1000000);
 		if (hashrate < 1000000)
-			return '0 Sol';
-		var byteUnits = [ ' Sol/s', ' KSol/s', ' MSol/s', ' GSol/s', ' TSol/s', ' PSol/s' ];
+			return '0 H';
+		var byteUnits = [ ' H/s', ' KH/s', ' MH/s', ' GH/s', ' TH/s', ' PH/s' ];
 		var i = Math.floor((Math.log(hashrate/1000) / Math.log(1000)) - 1);
 		hashrate = (hashrate/1000) / Math.pow(1000, i + 1);
 		return hashrate.toFixed(2) + byteUnits[i];

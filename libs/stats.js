@@ -363,7 +363,7 @@ module.exports = function(logger, portalConfig, poolConfigs){
 			_this.stats.balances = balances;
 			_this.stats.address = address;
 
-			cback({totalHeld:coinsRound(totalHeld), totalPaid:coinsRound(totalPaid), totalImmature:satoshisToCoins(totalImmature), balances});
+			cback({totalHeld:coinsRound(totalHeld), totalPaid:coinsRound(totalPaid), totalImmature:satoshisToCoins(totalImmature), balances: balances});
 		});
 	};
 
@@ -585,6 +585,11 @@ module.exports = function(logger, portalConfig, poolConfigs){
 				coinStats.miners = sortMinersByHashrate(coinStats.miners);
 				
                 var shareMultiplier = Math.pow(2, 32) / algos[coinStats.algorithm].multiplier;
+
+                if (coin === 'crea') {
+                    shareMultiplier *= 500;
+                }
+
                 coinStats.hashrate = shareMultiplier * coinStats.shares / portalConfig.website.stats.hashrateWindow;
                 coinStats.hashrateString = _this.getReadableHashRateString(coinStats.hashrate);
 				
@@ -759,9 +764,9 @@ module.exports = function(logger, portalConfig, poolConfigs){
     this.getReadableHashRateString = function(hashrate){
 		hashrate = (hashrate * 2);
 		if (hashrate < 1000000) {
-			return (Math.round(hashrate / 1000) / 1000 ).toFixed(2)+' Sol/s';
+			return (Math.round(hashrate / 1000) / 1000 ).toFixed(2)+' H/s';
 		}
-        var byteUnits = [ ' Sol/s', ' KSol/s', ' MSol/s', ' GSol/s', ' TSol/s', ' PSol/s' ];
+        var byteUnits = [ ' H/s', ' KH/s', ' MH/s', ' GH/s', ' TH/s', ' PH/s' ];
         var i = Math.floor((Math.log(hashrate/1000) / Math.log(1000)) - 1);
         hashrate = (hashrate/1000) / Math.pow(1000, i + 1);
         return hashrate.toFixed(2) + byteUnits[i];
@@ -770,8 +775,8 @@ module.exports = function(logger, portalConfig, poolConfigs){
 	function getReadableNetworkHashRateString(hashrate) {
 		hashrate = (hashrate * 1000000);
 		if (hashrate < 1000000)
-			return '0 Sol';
-		var byteUnits = [ ' Sol/s', ' KSol/s', ' MSol/s', ' GSol/s', ' TSol/s', ' PSol/s' ];
+			return '0 H';
+		var byteUnits = [ ' H/s', ' KH/s', ' MH/s', ' GH/s', ' TH/s', ' PH/s' ];
 		var i = Math.floor((Math.log(hashrate/1000) / Math.log(1000)) - 1);
 		hashrate = (hashrate/1000) / Math.pow(1000, i + 1);
 		return hashrate.toFixed(2) + byteUnits[i];

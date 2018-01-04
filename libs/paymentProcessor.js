@@ -1709,12 +1709,12 @@ function SetupForPool(logger, poolOptions, setupFinished) {
                                 /* We found a confirmed block! Now get the reward for it and calculate how much
                                    we owe each miner based on the shares they submitted during that block round. */
                                 var reward = parseInt(round.reward * magnitude);
-                                logger.info(logSystem, logComponent, 'block reward:', round.reward, reward, magnitude);
+                                logger.debug(logSystem, logComponent, 'block reward:', round.reward, reward, magnitude);
 
                                 var totalShares = Object.keys(workerShares).reduce(function (p, c) {
                                     return p + parseFloat(workerShares[c])
                                 }, 0);
-                                logger.info(logSystem, logComponent, 'total shares', totalShares);
+                                logger.debug(logSystem, logComponent, 'total shares', totalShares);
 
                                 for (var workerAddress in workerShares) {
                                     var percent = parseFloat(workerShares[workerAddress]) / totalShares;
@@ -1804,10 +1804,10 @@ function SetupForPool(logger, poolOptions, setupFinished) {
 
 
                     setTimeout(function () {
-                        logger.info(logSystem, logComponent, 'addressAccount:');
-                        logger.info(logSystem, logComponent, addressAccount);
-                        logger.info(logSystem, logComponent, 'addressAmounts:');
-                        logger.info(logSystem, logComponent, addressAmounts);
+                        logger.debug(logSystem, logComponent, 'addressAccount:');
+                        logger.debug(logSystem, logComponent, addressAccount);
+                        logger.debug(logSystem, logComponent, 'addressAmounts:');
+                        logger.debug(logSystem, logComponent, addressAmounts);
 
                         if (Object.keys(addressAmounts).length === 0) {
                             callback(null, workers, rounds);
@@ -1835,7 +1835,7 @@ function SetupForPool(logger, poolOptions, setupFinished) {
                                 callback(true);
                             }
                             else {
-                                logger.info(logSystem, logComponent, 'Sent out a total of ' + (totalSent / magnitude)
+                                logger.debug(logSystem, logComponent, 'Sent out a total of ' + (totalSent / magnitude)
                                     + ' to ' + Object.keys(addressAmounts).length + ' workers');
                                 if (withholdPercent > 0) {
                                     logger.error(logSystem, logComponent, 'Had to withhold ' + (withholdPercent * 100)
@@ -1845,7 +1845,7 @@ function SetupForPool(logger, poolOptions, setupFinished) {
                                 callback(null, workers, rounds);
                             }
                         }, true, true);
-                    }, 60000);
+                    }, 1000);
                 };
                 trySend(0);
 
