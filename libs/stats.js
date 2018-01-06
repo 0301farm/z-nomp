@@ -587,7 +587,7 @@ module.exports = function(logger, portalConfig, poolConfigs){
                 var shareMultiplier = Math.pow(2, 32) / algos[coinStats.algorithm].multiplier;
 
                 if (coin === 'crea') {
-                    shareMultiplier *= 500;
+                    shareMultiplier *= 500000;
                 }
 
                 coinStats.hashrate = shareMultiplier * coinStats.shares / portalConfig.website.stats.hashrateWindow;
