@@ -1864,11 +1864,11 @@ function SetupForPool(logger, poolOptions, setupFinished) {
                             'hincrbyfloat',
                             coin + ':balances',
                             w,
-                            satoshisToCoins(worker.balanceChange)
+                            satoshisToCoins(worker.balanceChange) || 0
                         ]);
                     }
                     if (worker.sent !== 0) {
-                        workerPayoutsCommand.push(['hincrbyfloat', coin + ':payouts', w, worker.sent]);
+                        workerPayoutsCommand.push(['hincrbyfloat', coin + ':payouts', w, worker.sent || 0]);
                         totalPaid += worker.sent;
                     }
                 }
@@ -1930,7 +1930,7 @@ function SetupForPool(logger, poolOptions, setupFinished) {
                     finalRedisCommands.push(['del'].concat(roundsToDelete));
 
                 if (totalPaid !== 0)
-                    finalRedisCommands.push(['hincrbyfloat', coin + ':stats', 'totalPaid', totalPaid]);
+                    finalRedisCommands.push(['hincrbyfloat', coin + ':stats', 'totalPaid', totalPaid || 0]);
 
                 if (finalRedisCommands.length === 0) {
                     callback();
